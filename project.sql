@@ -24,6 +24,13 @@ student_degree varchar(10),
 section_id int,
 foreign key (section_id) references section(section_id)
 );
+ALTER TABLE users ADD password VARCHAR(50) NULL;
+UPDATE users SET password = '12345';
+
+select* from users
+
+ALTER TABLE users ALTER COLUMN password VARCHAR(50) NOT NULL;
+
 
 create table marks(
 marks_id varchar (50) not null,
