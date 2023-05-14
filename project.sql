@@ -128,6 +128,61 @@ foreign key (semester_id) references semester(semester_id),
 foreign key (student_id) references users(id),
 );
 
+
+create table semester_course(
+semester_no int primary key,
+course1_id int,
+foreign key (course1_id) references course(course_id),
+course2_id int,
+foreign key (course2_id) references course(course_id),
+course3_id int,
+foreign key (course3_id) references course(course_id),
+course4_id int,
+foreign key (course4_id) references course(course_id),
+course5_id int,
+foreign key (course5_id) references course(course_id),
+);
+
+create table degree(
+degree_id int primary key,
+
+semester1 int,
+foreign key (semester1) references semester_course(semester_no),
+semester2 int,
+foreign key (semester2) references semester_course(semester_no),
+semester3 int,
+foreign key (semester3) references semester_course(semester_no),
+semester4 int,
+foreign key (semester4) references semester_course(semester_no),
+semester5 int,
+foreign key (semester5) references semester_course(semester_no),
+semester6 int,
+foreign key (semester6) references semester_course(semester_no),
+semester7 int,
+foreign key (semester7) references semester_course(semester_no),
+semester8 int,
+foreign key (semester8) references semester_course(semester_no)
+);
+
+create table student_course
+(
+  student_id varchar(50),
+  course_id int,
+  foreign key(student_id) references users(id),
+  foreign key(course_id) references course(course_id)
+);
+
+create table faculty_course
+(
+  student_id varchar(50),
+  course_id int,
+  foreign key(student_id) references users(id),
+  foreign key(course_id) references course(course_id)
+);
+
+
+
+
 insert into users(id,name,contact,email,cnic,blood_group,nationality,campus,gender,dob,job_type,faculty_type,office_num,instructor_department,instructor_post,student_batch,student_degree,section_id)
 select* from dbo.user$
 
@@ -155,3 +210,17 @@ select* from dbo.student_grade$
 
 insert into transcript(transcript_id,semester_id,student_id,course1_grade,course1_id,course2_id,course2_grade,course3_id,course3_grade,course4_id,course4_grade,course5_id,course5_grade,cgpa,sgpa,credit_hrs_att,credit_hrs_ernd)
 select* from dbo.transcript$
+
+
+insert into faculty_course(student_id,course_id) 
+select id,course_id
+from users
+where id!='I-1' and id !='I-2' and job_type !=2
+
+
+insert into student_course(student_id,course_id)
+select id,course_id
+from users
+where id!='I-1' and id !='I-2'
+
+
